@@ -47,13 +47,13 @@ $ mvn spring-boot:run
 
 ## 3. Using the API:
 
-### 3.1. The API will run on `http://localhost:8080` by default
+#### 3.1. The API will run on `http://localhost:8080` by default
 
-### 3.2. Upload a movies list file to `http://localhost:8080/movies/import/` via `POST` method (body should be form-data with a "file" parameter). Use <b>Postman</b> for this or your prefered API tester.
+#### 3.2. Upload a movies list file to `http://localhost:8080/movies/import/` via `POST` method (body should be form-data with a "file" parameter). Use <b>Postman</b> for this or your prefered API tester.
 
-### 3.3. You can find an example file in `src/main/resources/files`
+#### 3.3. You can find an example file in `src/main/resources/files`
 
-### 3.4. Perform a `GET` request to `http://localhost:8080/producers/getIntervals` in order to obtain the producers with the minimum and the maximum intervals between awards.<br><br>
+#### 3.4. Perform a `GET` request to `http://localhost:8080/producers/getIntervals` in order to obtain the producers with the minimum and the maximum intervals between awards.<br><br>
 
 ## 4. Running integration tests:
 
