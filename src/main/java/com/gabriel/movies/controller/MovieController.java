@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gabriel.movies.model.Movie;
+import com.gabriel.movies.dto.MovieDto;
 import com.gabriel.movies.service.MovieService;
 
 @RestController
@@ -21,7 +21,7 @@ public class MovieController {
 	private MovieService service;
 
 	@GetMapping("/")
-	public List<Movie> listMovies() {
+	public List<MovieDto> listMovies() {
 		return service.list();
 	}
 

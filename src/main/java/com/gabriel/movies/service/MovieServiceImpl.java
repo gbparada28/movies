@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.InternalServerErrorException;
 
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gabriel.movies.dto.MovieDto;
+import com.gabriel.movies.dto.MovieProducerDto;
 import com.gabriel.movies.model.Movie;
 import com.gabriel.movies.model.MovieProducer;
 import com.gabriel.movies.repository.MovieRepository;
@@ -119,13 +122,38 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<Movie> list() {
-		return this.repository.findAll();
+	public List<MovieDto> list() {
+		return toCollectionDto(this.repository.findAll());
 	}
 
 	@Override
 	public List<Movie> listWinners() {
 		return repository.findWinnerMovies();
+	}
+
+	private List<MovieDto> toCollectionDto(List<Movie> movies) {
+		return movies.stream().map(m -> toDto(m)).collect(Collectors.toList());
+	}
+
+	private MovieDto toDto(Movie movie) {
+		MovieDto dto = new MovieDto();
+		dto.setId(movie.getId());
+		dto.setName(movie.getName());
+		dto.setStudio(movie.getStudio());
+		dto.setWinner(movie.isWinner());
+		dto.setProducers(toProducerCollectionDto(movie.getProducers()));
+		return dto;
+	}
+
+	private List<MovieProducerDto> toProducerCollectionDto(List<MovieProducer> producers) {
+		return producers.stream().map(p -> toDto(p)).collect(Collectors.toList());
+	}
+
+	private MovieProducerDto toDto(MovieProducer producer) {
+		MovieProducerDto dto = new MovieProducerDto();
+		dto.setId(producer.getId());
+		dto.setName(producer.getName());
+		return dto;
 	}
 
 }

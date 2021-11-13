@@ -9,8 +9,6 @@ import com.gabriel.movies.model.MovieProducer;
 
 public interface MovieProducerService {
 
-	public List<MovieProducer> list();
-
 	public MovieProducer create(MovieProducer producer);
 
 	public MovieProducer findOneByName(String name);

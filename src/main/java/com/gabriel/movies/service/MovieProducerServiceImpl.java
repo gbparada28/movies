@@ -25,10 +25,6 @@ public class MovieProducerServiceImpl implements MovieProducerService {
 	@Autowired
 	private MovieProducerRepository repository;
 
-	public List<MovieProducer> list() {
-		return repository.findAll();
-	}
-
 	@Override
 	public MovieProducer create(MovieProducer producer) {
 		return repository.save(producer);
