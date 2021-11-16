@@ -22,20 +22,20 @@ $ git clone https://github.com/gbparada28/movies.git
 
 ### 2.1. Through Eclipse IDE:
 
- 2.1.1. Open Eclipse IDE
+#### 2.1.1. Open Eclipse IDE
 
-#### 2.1.3. Click `File > Import`
+#### 2.1.2. Click `File > Import`
 
-#### 2.1.4. Type Maven in the search box under `Select an import wizard:`
+#### 2.1.3. Type Maven in the search box under `Select an import wizard:`
 
-#### 2.1.5. Select `Existing Maven Projects` and then click `Next`
+#### 2.1.4. Select `Existing Maven Projects` and then click `Next`
 
-#### 2.1.6. Click `Browse` and select the folder that is the root of the Maven project (contains the pom.xml file)
+#### 2.1.5. Click `Browse` and select the folder that is the root of the Maven project (contains the pom.xml file)
 
-#### 2.1.7. Click `Finish`
+#### 2.1.6. Click `Finish`
 
-#### 2.1.8. Find `src/main/java/com/gabriel/movies/MoviesApplication.java`
-#### 2.1.9. Right click and then: `Run as > Java Application` <br><br>
+#### 2.1.7. Find `src/main/java/com/gabriel/movies/MoviesApplication.java`
+#### 2.1.8. Right click and then: `Run as > Java Application` <br><br>
 
 ### 2.2. Through console:
 
