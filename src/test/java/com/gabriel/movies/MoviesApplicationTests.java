@@ -27,6 +27,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.gabriel.movies.dto.MovieDto;
+import com.gabriel.movies.dto.MovieProducerIntervalDto;
 import com.gabriel.movies.dto.MovieProducerMinMaxIntervalDto;
 
 @RunWith(SpringRunner.class)
@@ -92,8 +93,12 @@ class MoviesApplicationTests {
 
 		assertTrue(response.getStatusCode().equals(HttpStatus.OK));
 		assertNotNull(response.getBody());
-		assertTrue(response.getBody().getMin().size() > 0);
-		assertTrue(response.getBody().getMax().size() > 0);
+
+		MovieProducerMinMaxIntervalDto dto = new MovieProducerMinMaxIntervalDto();
+		dto.getMax().add(new MovieProducerIntervalDto("Matthew Vaughn", 13, 2002, 2015));
+		dto.getMin().add(new MovieProducerIntervalDto("Joel Silver", 1, 1990, 1991));
+
+		assertTrue(response.getBody().equals(dto));
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.gabriel.movies.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,39 +46,35 @@ public class MovieProducerServiceImpl implements MovieProducerService {
 
 		List<MovieProducerIntervalDto> dtos = new ArrayList<>();
 
-		Integer minInterval = null;
-		Integer maxInterval = null;
-
 		for (MovieProducer producer : producers) {
-			Integer minYear = this.findMinYear(producer.getId());
-			Integer maxYear = this.findMaxYear(producer.getId());
+			List<Integer> years = producer.getMovies().stream().filter(m -> m.isWinner()).map(m -> m.getYear())
+					.collect(Collectors.toList());
+			Collections.sort(years);
 
-			if (minYear != null && maxYear != null) {
-				Integer interval = maxYear - minYear;
+			if (years.size() > 1) {
+				int i = 0;
+				while (i < years.size() && (i + 1) < years.size()) {
+					int minYear = years.get(i);
+					int maxYear = years.get(i + 1);
 
-				if (interval > 0) {
-
-					if (minInterval == null || interval < minInterval) {
-						minInterval = interval;
-					}
-					if (maxInterval == null || interval > maxInterval) {
-						maxInterval = interval;
-					}
+					Integer interval = maxYear - minYear;
 
 					MovieProducerIntervalDto dto = new MovieProducerIntervalDto(producer.getName(), interval, minYear,
 							maxYear);
 					dtos.add(dto);
+
+					i++;
 				}
 			}
 		}
 
 		MovieProducerMinMaxIntervalDto minMaxDto = new MovieProducerMinMaxIntervalDto();
 
-		final int fMin = minInterval != null ? minInterval.intValue() : 0;
-		final int fMax = maxInterval != null ? maxInterval.intValue() : 0;
+		int min = dtos.stream().map(d -> d.getInterval()).min(Comparator.naturalOrder()).get();
+		int max = dtos.stream().map(d -> d.getInterval()).max(Comparator.naturalOrder()).get();
 
-		minMaxDto.getMin().addAll(dtos.stream().filter(d -> fMin == d.getInterval()).collect(Collectors.toList()));
-		minMaxDto.getMax().addAll(dtos.stream().filter(d -> fMax == d.getInterval()).collect(Collectors.toList()));
+		minMaxDto.getMin().addAll(dtos.stream().filter(d -> d.getInterval() == min).collect(Collectors.toList()));
+		minMaxDto.getMax().addAll(dtos.stream().filter(d -> d.getInterval() == max).collect(Collectors.toList()));
 
 		return minMaxDto;
 	}
@@ -84,15 +82,5 @@ public class MovieProducerServiceImpl implements MovieProducerService {
 	@Override
 	public List<MovieProducer> listWinners() {
 		return repository.findWinnerProducers();
-	}
-
-	@Override
-	public Integer findMinYear(String producerId) {
-		return repository.findMinYear(producerId).stream().findFirst().orElse(null);
-	}
-
-	@Override
-	public Integer findMaxYear(String producerId) {
-		return repository.findMaxYear(producerId).stream().findFirst().orElse(null);
 	}
 }

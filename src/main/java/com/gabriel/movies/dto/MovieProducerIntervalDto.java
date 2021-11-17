@@ -50,4 +50,9 @@ public class MovieProducerIntervalDto {
 		this.followingWin = followingWin;
 	}
 
+	public boolean equals(MovieProducerIntervalDto other) {
+		return this.producer.equals(other.getProducer()) && this.interval == other.getInterval()
+				&& this.previousWin == other.getPreviousWin() && this.followingWin == other.getFollowingWin();
+	}
+
 }
